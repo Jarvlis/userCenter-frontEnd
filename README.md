@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ## Environment Prepare
 
 Install `node_modules`:
