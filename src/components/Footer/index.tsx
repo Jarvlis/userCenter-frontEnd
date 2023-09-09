@@ -1,33 +1,50 @@
-import {GithubOutlined} from '@ant-design/icons';
-import {DefaultFooter} from '@ant-design/pro-layout';
-import {PLANET_LINK} from "@/constants";
+import { GithubOutlined, CopyrightOutlined, BulbOutlined } from '@ant-design/icons';
+import { DefaultFooter } from '@ant-design/pro-layout';
 
 const Footer: React.FC = () => {
-  const defaultMessage = '鱼皮出品';
+  const defaultMessage = 'Jarvlis出品';
   const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter
-      copyright={`${currentYear} ${defaultMessage}`}
+      copyright={false}
       links={[
         {
-          key: 'planet',
-          title: '知识星球',
-          href: PLANET_LINK,
-          blankTarget: true,
-        },
-        {
-          key: 'codeNav',
-          title: '编程导航',
-          href: 'https://www.code-nav.cn',
-          blankTarget: true,
-        },
-        {
           key: 'github',
-          title: <><GithubOutlined/> 鱼皮 GitHub</>,
-          href: 'https://github.com/liyupi',
+          title: (
+            <>
+              <GithubOutlined /> Jarvlis GitHub
+            </>
+          ),
+          href: 'https://github.com/Jarvlis',
           blankTarget: true,
         },
-
+        {
+          key: 'juejin',
+          title: (
+            <>
+              <BulbOutlined />
+              掘金博客
+            </>
+          ),
+          href: 'https://juejin.cn/user/1676117864879038/posts',
+          blankTarget: true,
+        },
+        {
+          key: 'copyright',
+          title: (
+            <>
+              <CopyrightOutlined /> {`${defaultMessage} ${currentYear}`}
+            </>
+          ),
+          href: 'https://juejin.cn/user/1676117864879038/posts',
+          blankTarget: true,
+        },
+        {
+          key: 'beian',
+          title: '京ICP备2023021615号-1',
+          href: 'http://beian.miit.gov.cn/',
+          blankTarget: true,
+        },
       ]}
     />
   );

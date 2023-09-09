@@ -4,16 +4,16 @@
 declare namespace API {
   type CurrentUser = {
     id: number;
-    username: string;
-    userAccount: string;
-    avatarUrl?: string;
-    gender:number;
+    user_name: string;
+    user_account: string;
+    avatar_url?: string;
+    gender: number;
     phone: string;
     email: string;
-    userStatus: number;
-    userRole: number;
-    planetCode: string;
-    createTime: Date;
+    user_status: number;
+    user_role: number;
+    planet_code: string;
+    create_time: Date;
   };
 
   type LoginResult = {
@@ -48,11 +48,11 @@ declare namespace API {
    * 通用返回类
    */
   type BaseResponse<T> = {
-    code: number,
-    data: T,
-    message: string,
-    description: string,
-  }
+    code: number;
+    data: T;
+    message: string;
+    description: string;
+  };
 
   type RuleList = {
     data?: RuleListItem[];

@@ -1,19 +1,19 @@
-import {LockOutlined, UserOutlined,} from '@ant-design/icons';
-import {message, Tabs} from 'antd';
-import React, {useState} from 'react';
-import {history} from 'umi';
-import {PLANET_LINK, SYSTEM_LOGO} from '@/constants';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { message, Tabs } from 'antd';
+import React, { useState } from 'react';
+import { history } from 'umi';
+import { SYSTEM_LOGO } from '@/constants';
 import Footer from '@/components/Footer';
-import {register} from '@/services/ant-design-pro/api';
+import { register } from '@/services/ant-design-pro/api';
 import styles from './index.less';
-import {LoginForm, ProFormText} from '@ant-design/pro-form';
+import { LoginForm, ProFormText } from '@ant-design/pro-form';
 
 const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
 
   // 表单提交
   const handleSubmit = async (values: API.RegisterParams) => {
-    const {userPassword, checkPassword} = values;
+    const { userPassword, checkPassword } = values;
     // 校验
     if (userPassword !== checkPassword) {
       message.error('两次输入的密码不一致');
@@ -29,7 +29,7 @@ const Register: React.FC = () => {
 
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
-        const {query} = history.location;
+        const { query } = history.location;
         history.push({
           pathname: '/user/login',
           query,
@@ -48,12 +48,12 @@ const Register: React.FC = () => {
         <LoginForm
           submitter={{
             searchConfig: {
-              submitText: '注册'
-            }
+              submitText: '注册',
+            },
           }}
-          logo={<img alt="logo" src={SYSTEM_LOGO}/>}
-          title="编程导航知识星球"
-          subTitle={<a href={PLANET_LINK} target="_blank" rel="noreferrer">最好的编程学习知识圈子</a>}
+          logo={<img alt="logo" src={SYSTEM_LOGO} />}
+          title="用户中心管理系统 From Jarvlis"
+          subTitle="致力于做越来越优秀的用户信息管理平台"
           initialValues={{
             autoLogin: true,
           }}
@@ -61,16 +61,27 @@ const Register: React.FC = () => {
             await handleSubmit(values as API.RegisterParams);
           }}
         >
-          <Tabs activeKey={type} onChange={setType}>
-            <Tabs.TabPane key="account" tab={'账号密码注册'}/>
-          </Tabs>
+          <Tabs
+            activeKey={type}
+            onChange={setType}
+            items={[
+              {
+                label: '用户注册',
+                key: 'account',
+              },
+              {
+                label: '用户登录',
+                key: 'login',
+              },
+            ]}
+          />
           {type === 'account' && (
             <>
               <ProFormText
-                name="userAccount"
+                name="user_account"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined className={styles.prefixIcon}/>,
+                  prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder="请输入账号"
                 rules={[
@@ -81,10 +92,10 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText.Password
-                name="userPassword"
+                name="user_password"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon}/>,
+                  prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder="请输入密码"
                 rules={[
@@ -100,10 +111,10 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText.Password
-                name="checkPassword"
+                name="check_password"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon}/>,
+                  prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder="请再次输入密码"
                 rules={[
@@ -119,10 +130,10 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText
-                name="planetCode"
+                name="planet_code"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined className={styles.prefixIcon}/>,
+                  prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder="请输入星球编号"
                 rules={[
@@ -134,9 +145,10 @@ const Register: React.FC = () => {
               />
             </>
           )}
+          {type === 'login' && history.push('user/login')}
         </LoginForm>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

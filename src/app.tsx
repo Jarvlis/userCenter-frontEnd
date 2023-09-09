@@ -1,13 +1,14 @@
-import type {Settings as LayoutSettings} from '@ant-design/pro-layout';
-import {PageLoading, SettingDrawer} from '@ant-design/pro-layout';
-import type {RunTimeLayoutConfig} from 'umi';
-import {history, Link} from 'umi';
+import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
+import { PageLoading, SettingDrawer } from '@ant-design/pro-layout';
+import type { RunTimeLayoutConfig } from 'umi';
+import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import {currentUser as queryCurrentUser} from './services/ant-design-pro/api';
-import {BookOutlined, LinkOutlined} from '@ant-design/icons';
+import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
-import {RequestConfig} from "@@/plugin-request/request";
+import { RequestConfig } from '@@/plugin-request/request';
+import logo from '../public/logo.svg';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -54,10 +55,10 @@ export async function getInitialState(): Promise<{
   return {
     // @ts-ignore
     fetchUserInfo,
+    // @ts-ignore
     currentUser,
     settings: defaultSettings,
   };
-
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
@@ -65,8 +66,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
+    logo: <img src={logo} alt="Logo" />,
     waterMarkProps: {
-      content: initialState?.currentUser?.username,
+      content: initialState?.currentUser?.user_name,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {

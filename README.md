@@ -1,7 +1,3 @@
-# 用户中心前端
-
-This project is initialized with [鱼皮用户中心](https://pro.ant.design). Follow is the quick guide for how to use.
-
 ## Environment Prepare
 
 Install `node_modules`:
@@ -17,10 +13,6 @@ yarn
 ```
 
 ## Provided Scripts
-
-鱼皮用户中心 provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
 
 ### Start project
 

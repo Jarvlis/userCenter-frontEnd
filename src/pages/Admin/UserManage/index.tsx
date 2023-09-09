@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import { searchUsers } from "@/services/ant-design-pro/api";
-import {Image} from "antd";
+import { searchUsers } from '@/services/ant-design-pro/api';
+import { Image } from 'antd';
 
 const columns: ProColumns<API.CurrentUser>[] = [
   {
@@ -12,20 +12,20 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '用户名',
-    dataIndex: 'username',
+    dataIndex: 'user_name',
     copyable: true,
   },
   {
     title: '用户账户',
-    dataIndex: 'userAccount',
+    dataIndex: 'user_account',
     copyable: true,
   },
   {
     title: '头像',
-    dataIndex: 'avatarUrl',
+    dataIndex: 'avatar_url',
     render: (_, record) => (
       <div>
-        <Image src={record.avatarUrl} width={100} />
+        <Image src={record.avatar_url} width={100} />
       </div>
     ),
   },
@@ -45,15 +45,15 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '状态',
-    dataIndex: 'userStatus',
+    dataIndex: 'user_status',
   },
   {
     title: '星球编号',
-    dataIndex: 'planetCode',
+    dataIndex: 'planet_code',
   },
   {
     title: '角色',
-    dataIndex: 'userRole',
+    dataIndex: 'user_role',
     valueType: 'select',
     valueEnum: {
       0: { text: '普通用户', status: 'Default' },
@@ -65,7 +65,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'createTime',
+    dataIndex: 'create_time',
     valueType: 'dateTime',
   },
   {
@@ -80,7 +80,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       >
         编辑
       </a>,
-      <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
+      <a href={record.avatar_url} target="_blank" rel="noopener noreferrer" key="view">
         查看
       </a>,
       <TableDropdown
@@ -106,8 +106,8 @@ export default () => {
         console.log(sort, filter);
         const userList = await searchUsers();
         return {
-          data: userList
-        }
+          data: userList,
+        };
       }}
       editable={{
         type: 'multiple',
