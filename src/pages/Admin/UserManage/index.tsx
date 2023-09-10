@@ -25,7 +25,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'avatar_url',
     render: (_, record) => (
       <div>
-        <Image src={record.avatar_url} width={100} />
+        <Image src={record.avatarUrl} width={100} />
       </div>
     ),
   },
@@ -80,7 +80,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       >
         编辑
       </a>,
-      <a href={record.avatar_url} target="_blank" rel="noopener noreferrer" key="view">
+      <a href={record.avatarUrl} target="_blank" rel="noopener noreferrer" key="view">
         查看
       </a>,
       <TableDropdown

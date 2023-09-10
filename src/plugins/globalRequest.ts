@@ -12,7 +12,8 @@ import { stringify } from 'querystring';
  */
 const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
-  prefix: process.env.NODE_ENV === 'production' ? 'http://jarvlis.top' : 'http://localhost:8000',
+  prefix:
+    process.env.NODE_ENV === 'production' ? 'http://jarvlis.top:8080' : 'http://localhost:8080',
   // requestType: 'form',
 });
 
@@ -20,8 +21,7 @@ const request = extend({
  * 请求拦截器
  */
 request.interceptors.request.use((url, options): any => {
-  console.log(`do request url = ${url}`);
-
+  // console.log(`do request url = ${url}`);
   return {
     url,
     options: {

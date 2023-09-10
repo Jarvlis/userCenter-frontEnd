@@ -78,7 +78,7 @@ const Register: React.FC = () => {
           {type === 'account' && (
             <>
               <ProFormText
-                name="user_account"
+                name="userAccount"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
@@ -92,7 +92,7 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText.Password
-                name="user_password"
+                name="userPassword"
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon} />,
@@ -111,7 +111,7 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText.Password
-                name="check_password"
+                name="checkPassword"
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon} />,
@@ -130,7 +130,7 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText
-                name="planet_code"
+                name="planetCode"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
