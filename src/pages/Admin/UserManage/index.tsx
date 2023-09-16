@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
 import { searchUsers } from '@/services/ant-design-pro/api';
@@ -16,7 +16,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     copyable: true,
   },
   {
-    title: '用户账户',
+    title: '用户账号',
     dataIndex: 'user_account',
     copyable: true,
   },
@@ -25,7 +25,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'avatar_url',
     render: (_, record) => (
       <div>
-        <Image src={record.avatarUrl} width={100} />
+        <Image src={record.avatar_url} width={100} />
       </div>
     ),
   },
@@ -80,7 +80,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       >
         编辑
       </a>,
-      <a href={record.avatarUrl} target="_blank" rel="noopener noreferrer" key="view">
+      <a href={record.avatar_url} target="_blank" rel="noopener noreferrer" key="view">
         查看
       </a>,
       <TableDropdown

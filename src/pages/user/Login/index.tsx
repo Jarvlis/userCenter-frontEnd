@@ -65,7 +65,7 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
-          title="用户中心管理系统 From Jarvlis"
+          title="用户信息海岛 From Jarvlis"
           subTitle="致力于做越来越优秀的用户信息管理平台"
           initialValues={{
             autoLogin: true,

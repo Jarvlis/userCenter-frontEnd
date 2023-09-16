@@ -12,7 +12,7 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '用户中心',
+  title: '用户信息海岛',
   pwa: false,
   iconfontUrl: '',
 };

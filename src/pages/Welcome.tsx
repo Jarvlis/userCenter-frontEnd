@@ -7,7 +7,7 @@ const Welcome: React.FC = () => {
     <PageContainer>
       <Card>
         <Alert
-          message={'欢迎使用用户中心管理系统 From Jarvlis'}
+          message={'欢迎来到用户信息海岛 From Jarvlis'}
           type="success"
           showIcon
           banner
