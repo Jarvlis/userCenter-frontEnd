@@ -42,14 +42,29 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
   });
 }
 
-/** 搜索用户 GET /api/user/search */
-export async function searchUsers(options?: { [key: string]: any }) {
+/** 搜索用户 POST /api/user/search */
+export async function searchUsers(body: API.SearchUser, options?: { [key: string]: any }) {
   return request<API.BaseResponse<API.CurrentUser[]>>('/api/user/search', {
-    method: 'GET',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }
 
+/** 删除规则 POST /api/user/delete */
+export async function deleteUsers(id: number, options?: { [key: string]: any }) {
+  return request<API.BaseResponse<boolean>>('/api/user/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: { id },
+    ...(options || {}),
+  });
+}
 
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {

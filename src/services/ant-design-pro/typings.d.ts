@@ -81,6 +81,19 @@ declare namespace API {
     type?: string;
   };
 
+  type SearchUser = {
+    id?: number;
+    user_name?: string;
+    user_account?: string;
+    phone?: string;
+    user_status?: number;
+    user_role?: number;
+    planet_code?: string;
+    type?: string;
+    pageSize?: number;
+    current?: number;
+  };
+
   type ErrorResponse = {
     /** 业务约定的错误码 */
     errorCode: string;

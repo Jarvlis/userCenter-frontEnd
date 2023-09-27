@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import { searchUsers } from '@/services/ant-design-pro/api';
-import { Image } from 'antd';
+import { deleteUsers, searchUsers } from '@/services/ant-design-pro/api';
+import { Button, Image, message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 const columns: ProColumns<API.CurrentUser>[] = [
   {
@@ -23,6 +24,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
   {
     title: '头像',
     dataIndex: 'avatar_url',
+    hideInSearch: true,
     render: (_, record) => (
       <div>
         <Image src={record.avatar_url} width={100} />
@@ -32,6 +34,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
   {
     title: '性别',
     dataIndex: 'gender',
+    hideInSearch: true,
   },
   {
     title: '电话',
@@ -42,6 +45,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '邮件',
     dataIndex: 'email',
     copyable: true,
+    hideInSearch: true,
   },
   {
     title: '状态',
@@ -67,6 +71,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '创建时间',
     dataIndex: 'create_time',
     valueType: 'dateTime',
+    hideInSearch: true,
   },
   {
     title: '操作',
@@ -97,20 +102,33 @@ const columns: ProColumns<API.CurrentUser>[] = [
 
 export default () => {
   const actionRef = useRef<ActionType>();
+
   return (
     <ProTable<API.CurrentUser>
+      debounceTime={500}
       columns={columns}
       actionRef={actionRef}
       cardBordered
-      request={async (params = {}, sort, filter) => {
-        console.log(sort, filter);
-        const userList = await searchUsers();
+      // @ts-ignore
+      request={async (params: API.SearchUser) => {
+        const userList = await searchUsers({ ...params });
         return {
           data: userList,
+          // @ts-ignore
+          total: userList.length,
+          success: true,
         };
       }}
       editable={{
         type: 'multiple',
+        onDelete: async (key, row) => {
+          const successDelete = await deleteUsers(row.id);
+          if (successDelete) {
+            message.success('删除成功');
+          } else {
+            message.error('删除失败');
+          }
+        },
       }}
       columnsState={{
         persistenceKey: 'pro-table-singe-demos',
@@ -136,7 +154,19 @@ export default () => {
         pageSize: 5,
       }}
       dateFormatter="string"
-      headerTitle="高级表格"
+      headerTitle="用户信息"
+      toolBarRender={() => [
+        <Button
+          key="button"
+          icon={<PlusOutlined />}
+          onClick={() => {
+            actionRef.current?.reload();
+          }}
+          type="primary"
+        >
+          新建
+        </Button>,
+      ]}
     />
   );
 };
