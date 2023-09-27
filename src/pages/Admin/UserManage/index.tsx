@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import { deleteUsers, searchUsers } from '@/services/ant-design-pro/api';
-import { Button, Image, message } from 'antd';
+import { deleteUsers, register, searchUsers } from '@/services/ant-design-pro/api';
+import { Button, Form, Image, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
 
 const columns: ProColumns<API.CurrentUser>[] = [
   {
@@ -102,7 +103,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
 
 export default () => {
   const actionRef = useRef<ActionType>();
-
+  const [form] = Form.useForm<API.RegisterParams>();
   return (
     <ProTable<API.CurrentUser>
       debounceTime={500}
@@ -156,16 +157,65 @@ export default () => {
       dateFormatter="string"
       headerTitle="用户信息"
       toolBarRender={() => [
-        <Button
-          key="button"
-          icon={<PlusOutlined />}
-          onClick={() => {
-            actionRef.current?.reload();
+        <ModalForm<API.RegisterParams>
+          title="创建用户"
+          trigger={
+            <Button type="primary">
+              <PlusOutlined />
+              创建用户
+            </Button>
+          }
+          form={form}
+          autoFocusFirstInput
+          modalProps={{
+            destroyOnClose: true,
+            onCancel: () => console.log('run'),
           }}
-          type="primary"
+          submitTimeout={3000}
+          onFinish={async (values: API.RegisterParams) => {
+            const { checkPassword, userPassword } = values;
+            if (checkPassword !== userPassword) {
+              message.error('新增用户失败');
+              return false;
+            }
+            const id = await register({ ...values });
+            if (id) {
+              message.success('新增用户成功');
+              setTimeout(() => {
+                actionRef.current?.reload(); // 刷新表单
+              }, 0);
+              return true;
+            }
+            return false;
+          }}
         >
-          新建
-        </Button>,
+          <ProForm.Group>
+            <ProFormText
+              width="md"
+              name="userAccount"
+              label="用户账号"
+              placeholder="请输入用户账号"
+            />
+            <ProFormText
+              width="md"
+              name="userPassword"
+              label="用户密码"
+              placeholder="请输入用户密码"
+            />
+            <ProFormText
+              width="md"
+              name="checkPassword"
+              label="确认用户密码"
+              placeholder="请再次输入用户密码"
+            />
+            <ProFormText
+              width="md"
+              name="planetCode"
+              label="星球编号"
+              placeholder="请输入星球编号"
+            />
+          </ProForm.Group>
+        </ModalForm>,
       ]}
     />
   );
