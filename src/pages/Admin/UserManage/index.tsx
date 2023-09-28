@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import { deleteUsers, register, searchUsers } from '@/services/ant-design-pro/api';
+import { deleteUsers, register, saveUsers, searchUsers } from '@/services/ant-design-pro/api';
 import { Button, Form, Image, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
@@ -92,10 +92,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       <TableDropdown
         key="actionGroup"
         onSelect={() => action?.reload()}
-        menus={[
-          { key: 'copy', name: '复制' },
-          { key: 'delete', name: '删除' },
-        ]}
+        menus={[{ key: 'copy', name: '复制' }]}
       />,
     ],
   },
@@ -128,6 +125,15 @@ export default () => {
             message.success('删除成功');
           } else {
             message.error('删除失败');
+          }
+        },
+        onSave: async (key, row) => {
+          console.log(row);
+          const successSave = await saveUsers(row);
+          if (successSave) {
+            message.success('保存成功');
+          } else {
+            message.error('保存失败');
           }
         },
       }}

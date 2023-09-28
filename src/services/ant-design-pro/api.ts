@@ -54,6 +54,18 @@ export async function searchUsers(body: API.SearchUser, options?: { [key: string
   });
 }
 
+/** 保存规则 POST /api/user/save */
+export async function saveUsers(body: API.CurrentUser, options?: { [key: string]: any }) {
+  return request<API.BaseResponse<boolean>>('/api/user/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 删除规则 POST /api/user/delete */
 export async function deleteUsers(id: number, options?: { [key: string]: any }) {
   return request<API.BaseResponse<boolean>>('/api/user/delete', {
